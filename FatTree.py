@@ -101,8 +101,3 @@ def CreatNet():
 
 
 topos = {'mytopo': (lambda: CreatNet())}
-
-
-# if __name__ == "__main__":
-#    f = FatTree()
-#    f.Display()
