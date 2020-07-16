@@ -29,7 +29,8 @@ class L2Switch(app_manager.RyuApp):
             
         dp.send_msg(out)
 
-        # OFPActionOutput class is used with a packet_out message to specify a switch port that you want to send the packet out of. This application uses the OFPP_FLOOD flag to indicate that the packet should be sent out on all ports.
+        # OFPActionOutput class is used with a packet_out message to specify a switch port that you want to send the packet out of. 
+          This application uses the OFPP_FLOOD flag to indicate that the packet should be sent out on all ports.
         # OFPPacketOut class is used to build a packet_out message.
         # If you call Datapath class's send_msg method with a OpenFlow message class object, Ryu builds and sends the on-wire data format to the switch.
 
