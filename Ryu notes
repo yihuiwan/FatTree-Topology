@@ -36,4 +36,7 @@ class L2Switch(app_manager.RyuApp):
 
 
 
+# run the program
+ryu-manager (the name).py
+
 reference: https://ryu.readthedocs.io/en/latest/writing_ryu_app.html
