@@ -21,6 +21,7 @@ class L2Switch(app_manager.RyuApp):
         # ev.msg is an object that represents a packet_in data structure.
         # msg.dp is an object that represents a datapath (switch).
         # dp.ofproto and dp.ofproto_parser are objects that represent the OpenFlow protocol that Ryu and the switch negotiated.
+        # datapath is the aimed switch
         
         actions = [ofp_parser.OFPActionOutput(ofp.OFPP_FLOOD)]
         out = ofp_parser.OFPPacketOut(
