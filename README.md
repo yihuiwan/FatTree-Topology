@@ -4,7 +4,7 @@ use Mininet-python to create fattree topology and verify the topology by Ryu
 # How to use the code
 1. Run Ryu in command window in Ryu director, use: PYTHONPATH=. ./bin/ryu run --observe-links ryu/app/gui_topology/gui_topology.py
 
-2. Run Mininet in command window in ../mininet/custom director, use: sudo mn --custom fattree_topology.py --topo mytopo
+2. Run Mininet in command window in ../mininet/custom director, use: sudo mn --custom FatTree.py --topo mytopo
 
      * notice that the code file should be in  ../mininet/custom director
 
