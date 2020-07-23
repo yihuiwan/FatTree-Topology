@@ -2,23 +2,16 @@
 
 from mininet.topo import Topo
 from mininet.net import Mininet
-from mininet.util import irange,dumpNodeConnections
-from mininet.log import setLogLevel
 from mininet.link import Link, Intf, TCLink
 from mininet.node import Controller,OVSSwitch,RemoteController,CPULimitedHost
 from mininet.cli import CLI
-from collections import deque
-import math
-import os
 
 
 class FatTree(Topo):
-# class FatTree():
     def __init__(self):
         Topo.__init__(self)
-        self.k = 6
-        self.PortNum = self.k
-        self.PodNum = self.k
+        self.k = int(input('please input k: '))
+        self.PortNum, self.PodNum = self.k, self.k
         self.CoreNum = int(pow(self.k/2, 2))
         self.CoreName = ['c'+str(x) for x in range(self.CoreNum)]
         self.AggrNum = int(self.k / 2 * self.PodNum)
@@ -27,7 +20,6 @@ class FatTree(Topo):
         self.EdgeName = ['e'+str(x) for x in range(self.EdgeNum)]
         self.HostNum = int(pow(self.k, 3)/4)
         self.HostName = ['h'+str(x) for x in range(self.HostNum)]
-
 
         self.HList = []
         self.CsList = []
@@ -44,21 +36,21 @@ class FatTree(Topo):
         for i in range(int(self.k/2)):
             for j in range(int(self.k/2)):
                 dpid = "00:00:00:00:00:%02d:%02d:%02d" % (self.k, j, i)
-                self.CsList.append(self.addSwitch(str(self.CoreName[count]), dpid=dpid, protocols='OpenFlow13'))
+                self.CsList.append(self.addSwitch(str(self.CoreName[count]), dpid=dpid))
                 count += 1
         # Aggregation
         count = 0
         for p in range(self.PodNum):
             for s in range(int(self.k / 2), self.k):
                 dpid = "00:00:00:00:00:%02d:%02d:01" % (p, s)
-                self.AsList.append(self.addSwitch(str(self.AggrName[count]), dpid=dpid, protocols='OpenFlow13'))
+                self.AsList.append(self.addSwitch(str(self.AggrName[count]), dpid=dpid))
                 count += 1
         # Edge
         count = 0
         for p in range(self.PodNum):
             for s in range(int(self.k / 2)):
                 dpid = "00:00:00:00:00:%02d:%02d:01" % (p, s)
-                self.EsList.append(self.addSwitch(str(self.EdgeName[count]), dpid=dpid, protocols='OpenFlow13'))
+                self.EsList.append(self.addSwitch(str(self.EdgeName[count]), dpid=dpid))
                 count += 1
 
     def CreatHost(self):
@@ -94,7 +86,7 @@ class FatTree(Topo):
 def CreatNet():
     topo = FatTree()
     net = Mininet(topo=topo, controller=None, autoSetMacs=True, autoStaticArp=True, host=CPULimitedHost, link=TCLink)
-    net.addController('c0', controller=RemoteController, ip='127.0.0.1', port=6633, protocols="OpenFlow13")
+    net.addController('controller', controller=RemoteController, ip='127.0.0.1', port=6633, protocols="OpenFlow13")
     net.start()
     CLI(net)
     net.stop()
